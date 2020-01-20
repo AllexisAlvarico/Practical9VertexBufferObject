@@ -38,7 +38,7 @@ typedef struct
 	float color[3];
 } Vertex;
 
-Vertex vertex[6];
+Vertex vertex[12];
 GLubyte triangles[6];
 
 /* Variable to hold the VBO identifier */
@@ -52,7 +52,7 @@ void Game::initialize()
 	glewInit();
 
 	/* Vertices counter-clockwise winding */
-
+	//triangle 1
 	vertex[0].coordinate[0] = -0.5f;
 	vertex[0].coordinate[1] = -0.5f;
 	vertex[0].coordinate[2] = 0.0f;
@@ -65,17 +65,38 @@ void Game::initialize()
 	vertex[2].coordinate[1] = 0.5f;
 	vertex[2].coordinate[2] = 0.0f;
 
-	//vertex[3].coordinate[0] = 0.5f; 
-	//vertex[3].coordinate[1] = 0.5f;  
-	//vertex[3].coordinate[2] = 0.0f;
+	//triangle 2
+	vertex[3].coordinate[0] = 0.5f; 
+	vertex[3].coordinate[1] = 0.5f;  
+	vertex[3].coordinate[2] = 0.0f;
 
-	//vertex[4].coordinate[0] = 0.5f; 
-	//vertex[4].coordinate[1] = -0.5f;  
-	//vertex[4].coordinate[2] = 0.0f;
+	vertex[4].coordinate[0] = 0.5f; 
+	vertex[4].coordinate[1] = -0.5f;  
+	vertex[4].coordinate[2] = 0.0f;
 
-	//vertex[5].coordinate[0] = -0.5f; 
-	//vertex[5].coordinate[1] = -0.5f;  
-	//vertex[5].coordinate[2] = 0.0f;
+	vertex[5].coordinate[0] = -0.5f; 
+	vertex[5].coordinate[1] = -0.5f;  
+	vertex[5].coordinate[2] = 0.0f;
+
+	//triangle 3
+	vertex[6].coordinate[0] = 0.5f;
+	vertex[6].coordinate[1] = 0.5f;
+	vertex[6].coordinate[2] = 0.0f;
+
+	vertex[7].coordinate[0] = 0.5f;
+	vertex[7].coordinate[1] = -0.5f;
+	vertex[7].coordinate[2] = 0.0f;
+
+	vertex[8].coordinate[0] = -0.5f;
+	vertex[8].coordinate[1] = -0.5f;
+	vertex[8].coordinate[2] = 0.0f;
+
+	//triangle 4
+	vertex[9].coordinate[0] = 0.5f;
+	vertex[9].coordinate[0] = 0.5f;
+	vertex[9].coordinate[0] = 0.5f;
+	vertex[9].coordinate[0] = 0.5f;
+
 
 	vertex[0].color[0] = 0.1f;
 	vertex[0].color[1] = 1.0f;
@@ -148,9 +169,9 @@ void Game::update()
 	}
 
 	//Change vertex data
-	vertex[0].coordinate[0] += -0.0001f;
-	vertex[0].coordinate[1] += -0.0001f;
-	vertex[0].coordinate[2] += -0.0001f;
+	//vertex[0].coordinate[0] += -0.0001f;
+	//vertex[0].coordinate[1] += -0.0001f;
+	//vertex[0].coordinate[2] += -0.0001f;
 
 	cout << "Update up" << endl;
 }
