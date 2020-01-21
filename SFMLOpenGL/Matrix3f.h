@@ -38,9 +38,9 @@ public:
 	static Matrix3f rotationY(const double t_angleRadians);
 	static Matrix3f rotationX(const double t_angleRadians);// {1,-3,2} = MyMatrix3::rotationX(PI/2)*{1,2,3}
 
-	static Matrix3f translation(const int dx, int dy); // 2d translation make sure z=1
+	static Matrix3f translation(float dx, float dy); // 2d translation make sure z=1
 	static Matrix3f scale(const int dx, int dy);
-	static Matrix3f scale3D(int dx);
+	static Matrix3f scale3D(double dx);
 
 
 private:

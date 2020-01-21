@@ -75,6 +75,7 @@ void Game::initialize()
 	glLoadIdentity();
 	gluPerspective(45.0, window.getSize().x / window.getSize().y, 1.0, 500.0);
 	glMatrixMode(GL_MODELVIEW);
+	glEnable(GL_CULL_FACE);
 
 	isRunning = true;
 
@@ -114,37 +115,37 @@ void Game::initialize()
 	vertex[7].coordinate[2] = vertices[23];
 
 	vertex[0].color[0] = 0.1f;
-	vertex[0].color[1] = 1.0f;
-	vertex[0].color[2] = 0.0f;
+	vertex[0].color[1] = 0.0f;
+	vertex[0].color[2] = 0.5f;
 
-	vertex[1].color[0] = 0.2f;
+	vertex[1].color[0] = 0.5f;
 	vertex[1].color[1] = 1.0f;
-	vertex[1].color[2] = 0.0f;
+	vertex[1].color[2] = 0.3f;
 
 	vertex[2].color[0] = 0.3f;
-	vertex[2].color[1] = 1.0f;
-	vertex[2].color[2] = 0.0f;
+	vertex[2].color[1] = 0.0f;
+	vertex[2].color[2] = 1.0f;
 
 	vertex[3].color[0] = 0.4f;
-	vertex[3].color[1] = 1.0f;
-	vertex[3].color[2] = 0.0f;
+	vertex[3].color[1] = 0.6f;
+	vertex[3].color[2] = 0.4f;
 
 	vertex[4].color[0] = 0.5f;
 	vertex[4].color[1] = 1.0f;
-	vertex[4].color[2] = 0.0f;
+	vertex[4].color[2] = 0.5f;
 
-	vertex[5].color[0] = 0.6f;
-	vertex[5].color[1] = 1.0f;
-	vertex[5].color[2] = 0.0f;
+	vertex[5].color[0] = 1.2f;
+	vertex[5].color[1] = 0.2f;
+	vertex[5].color[2] = 0.4f;
 
 
-	vertex[6].color[0] = 0.5f;
-	vertex[6].color[1] = 1.0f;
-	vertex[6].color[2] = 0.0f;
+	vertex[6].color[0] = 1.0f;
+	vertex[6].color[1] = 0.6f;
+	vertex[6].color[2] = 0.5f;
 
 	vertex[7].color[0] = 0.6f;
-	vertex[7].color[1] = 1.0f;
-	vertex[7].color[2] = 0.0f;
+	vertex[7].color[1] = 0.7f;
+	vertex[7].color[2] = 0.3f;
 
 
 
@@ -154,9 +155,7 @@ void Game::initialize()
 	triangles[9] = 6;   triangles[10] = 7;   triangles[11] = 3;
 	triangles[12] = 7;   triangles[13] = 6;   triangles[14] = 5;
 	triangles[15] = 5;   triangles[16] = 4;   triangles[17] = 7;
-
 	triangles[18] = 5;   triangles[19] = 0;   triangles[20] = 4;
-
 	triangles[21] = 5;   triangles[22] = 1;   triangles[23] = 0;
 	triangles[24] = 1;   triangles[25] = 5;   triangles[26] = 6;
 	triangles[27] = 6;   triangles[28] = 2;   triangles[29] = 1;
@@ -184,33 +183,8 @@ void Game::update()
 {
 	elapsed = clock.getElapsedTime();
 
-	if (elapsed.asSeconds() >= 1.0f)
-	{
-		clock.restart();
 
-		if (!flip)
-		{
-			flip = true;
-		}
-		else
-			flip = false;
-	}
-
-	if (flip)
-	{
-		rotationAngle += 0.005f;
-
-		if (rotationAngle > 360.0f)
-		{
-			rotationAngle -= 360.0f;
-		}
-	}
-
-	//Change vertex data
-	//vertex[0].coordinate[0] += -0.0001f;
-	//vertex[0].coordinate[1] += -0.0001f;
-	//vertex[0].coordinate[2] += -0.0001f;
-
+	cubeRotation();
 	std::cout << "Update up" << std::endl;
 }
 
@@ -246,6 +220,148 @@ void Game::render()
 	window.display();
 
 }
+
+
+void Game::cubeRotation()
+{
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationX(rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationX(-rotationAngle) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationY(-rotationAngle) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationY(-rotationAngle) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationZ(rotationAngle) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::rotationZ(-rotationAngle) * m_points[i];
+		}
+	}
+
+
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::scale3D(101) * m_points[i];
+		}
+	}
+
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3f::scale3D(99) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			float temp = m_points[i].m_z;
+			m_points[i].m_z = 1;
+			m_points[i] = Matrix3f::translation(0.001f,0.0f) * m_points[i];
+			m_points[i].m_z = temp;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			float temp = m_points[i].m_z;
+			m_points[i].m_z = 1;
+			m_points[i] = Matrix3f::translation(-0.001f, 0.0f) * m_points[i];
+			m_points[i].m_z = temp;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			float temp = m_points[i].m_z;
+			m_points[i].m_z = 1;
+			m_points[i] = Matrix3f::translation(0.0f,0.001f) * m_points[i];
+			m_points[i].m_z = temp;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			float temp = m_points[i].m_z;
+			m_points[i].m_z = 1;
+			m_points[i] = Matrix3f::translation(0.0f, -0.001f) * m_points[i];
+			m_points[i].m_z = temp;
+		}
+	}
+
+
+
+
+	for (int i = 0, j = 0; i < 8, j < 24; i++)
+	{
+		vertex[i].coordinate[0] = m_points[i].m_x;
+		j++;
+		vertex[i].coordinate[1] = m_points[i].m_y;
+		j++;
+		vertex[i].coordinate[2] = m_points[i].m_z;
+		j++;
+	}
+
+
+
+
+}
+
+
 
 void Game::unload()
 {

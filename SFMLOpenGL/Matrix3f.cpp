@@ -230,17 +230,17 @@ Matrix3f Matrix3f::rotationX(const double t_angleRadians)
 	return m_answer;
 }
 
-Matrix3f Matrix3f::translation(const int dx, int dy)
+Matrix3f Matrix3f::translation(float dx, float dy)
 {
 	Matrix3f m_answer;
 	m_answer.A11 = 1;
 	m_answer.A12 = 0;
-	m_answer.A13 = 0;
+	m_answer.A13 = dx;
 	m_answer.A21 = 0;
 	m_answer.A22 = 1;
-	m_answer.A23 = 0;
-	m_answer.A31 = dx;
-	m_answer.A32 = dy;
+	m_answer.A23 = dy;
+	m_answer.A31 = 0;
+	m_answer.A32 = 0;
 	m_answer.A33 = 1;
 
 	return m_answer;
@@ -262,7 +262,7 @@ Matrix3f Matrix3f::scale(const int dx, int dy)
 	return m_answer;
 }
 
-Matrix3f Matrix3f::scale3D(int dx)
+Matrix3f Matrix3f::scale3D(double dx)
 {
 	Matrix3f m_answer;
 	m_answer.A11 = (double)dx / 100;

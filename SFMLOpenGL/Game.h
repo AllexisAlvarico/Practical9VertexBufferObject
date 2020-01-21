@@ -25,9 +25,6 @@ private:
 
 	sf::Clock clock;
 	sf::Time elapsed;
-
-
-
-
-	float rotationAngle = 0.0f;
+	void cubeRotation();
+	double rotationAngle = 0.05f;
 };
